@@ -1,0 +1,5 @@
+# Ignore build outputs
+main.exe
+*.o
+*.obj
+*.exe
