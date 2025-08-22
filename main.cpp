@@ -7,16 +7,15 @@ const int screenWidth = 600;
 const int screenHeight = 600;
 
 int game_grid [] = {
-    1, 2, 1,
-    2, 1, 2,
-    1, 2, 1
+    1, 2, 2,
+    2, 0, 1,
+    2, 0, 2
 };
 
-
 // function prototypes
-void draw_circle();
-void draw_cross();
-void draw_winner_line();
+void draw_circle(int x, int y);
+void draw_cross(int x, int y);
+void draw_winner_line(); // how can we once there are 3 circles or crosses next to each other?
 void draw_grid();
 
 int mouse_pos_x;
@@ -49,28 +48,10 @@ int main() {
             row_y = (i / 3) * 200;
 
             if (game_grid[i] == 1) {
-                DrawCircleLines(
-                    col_x - 100,
-                    row_y + 100,
-                    100.0f,
-                    WHITE
-                );
-
+                draw_circle(col_x, row_y);
 
             } else if (game_grid[i] == 2) {
-
-                DrawLine (
-                    col_x - 200, row_y, //start x start y
-                    col_x, row_y + 200, // end x end y
-                    WHITE
-                );
-
-                DrawLine (
-                    col_x - 200, row_y + 200, //start x start y
-                    col_x, row_y, // end x end y
-                    WHITE
-                );
-
+               draw_cross(col_x, row_y);
             }
         }
 
@@ -91,4 +72,27 @@ void draw_grid() {
     // horiziontal lines
     DrawLine(0, 200, screenWidth, 200, WHITE);
     DrawLine(0, 400, screenWidth, 400, WHITE);
+}
+
+void draw_circle(int x, int y) {
+    DrawCircleLines(
+        x - 100,
+        y + 100,
+        100.0f,
+        WHITE
+    );
+}
+
+void draw_cross(int x, int y) {
+    DrawLine (
+        x - 200, y, //start x start y
+        x, y + 200, // end x end y
+        WHITE
+    );
+
+    DrawLine (
+        x - 200, y + 200, //start x start y
+        x, y, // end x end y
+        WHITE
+    );
 }
