@@ -7,9 +7,9 @@ const int screenWidth = 600;
 const int screenHeight = 600;
 
 int game_grid [] = {
-    2, 2, 2, // 0
-    2, 2, 2, // 1
-    2, 2, 2  // 2
+    1, 2, 2,
+    2, 1, 2,
+    2, 2, 1
 };
 
 
@@ -44,16 +44,6 @@ int main() {
                 int col_x = ((i % 3) + 1) * 200;
                 int row_y = (i / 3) * 200;
 
-                // if( i == 2 ) {
-                //     row_y = 0;
-                // } else if ( i == 5) {
-                //     row_y = 200;
-                // } else if ( i == 8) {
-                //     row_y = 400;
-                // }
-
-                
-
                 DrawCircleLines(
                     col_x - 100,
                     row_y + 100,
@@ -63,14 +53,20 @@ int main() {
 
 
             } else if (game_grid[i] == 2) {
-                // int col_x = ((i % 3)) * 200;
-                // int row_y = (((i + 1) / 3)) * 200;
+                int col_x = ((i % 3) + 1) * 200;
+                int row_y = (i / 3) * 200;
 
-                // DrawLine (
-                //     col_x, row_y, //start x start y
-                //     col_x + 200, row_y + 200, // end x end y
-                //     WHITE
-                // );
+                DrawLine (
+                    col_x - 200, row_y, //start x start y
+                    col_x, row_y + 200, // end x end y
+                    WHITE
+                );
+
+                DrawLine (
+                    col_x - 200, row_y + 200, //start x start y
+                    col_x, row_y, // end x end y
+                    WHITE
+                );
 
             }
         }
