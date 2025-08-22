@@ -15,7 +15,7 @@ int game_grid [] = {
 // function prototypes
 void draw_circle(int x, int y);
 void draw_cross(int x, int y);
-void draw_winner_line(); // how can we once there are 3 circles or crosses next to each other?
+void draw_winner_line();
 void draw_grid();
 
 int mouse_pos_x;
