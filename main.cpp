@@ -7,9 +7,9 @@ const int screenWidth = 600;
 const int screenHeight = 600;
 
 int game_grid [] = {
-    1, 2, 2,
+    1, 2, 1,
     2, 1, 2,
-    2, 2, 1
+    1, 2, 1
 };
 
 
@@ -21,6 +21,11 @@ void draw_grid();
 
 int mouse_pos_x;
 int mouse_pos_y;
+
+int col_x;
+int row_y;
+
+bool draw_shape = false; // false == x / true == o
 
 int main() {
     InitWindow(screenWidth, screenHeight, "Tic Tac Toe");
@@ -39,11 +44,11 @@ int main() {
         }
 
         // TODO: FIX THIS GARBAGE
-        for(int i = 0; i < 9; i++) {
-            if (game_grid[i] == 1) {
-                int col_x = ((i % 3) + 1) * 200;
-                int row_y = (i / 3) * 200;
+        for(int i = 0; i < sizeof(game_grid) / sizeof(game_grid[0]); i++) {
+            col_x = ((i % 3) + 1) * 200;
+            row_y = (i / 3) * 200;
 
+            if (game_grid[i] == 1) {
                 DrawCircleLines(
                     col_x - 100,
                     row_y + 100,
@@ -53,8 +58,6 @@ int main() {
 
 
             } else if (game_grid[i] == 2) {
-                int col_x = ((i % 3) + 1) * 200;
-                int row_y = (i / 3) * 200;
 
                 DrawLine (
                     col_x - 200, row_y, //start x start y
