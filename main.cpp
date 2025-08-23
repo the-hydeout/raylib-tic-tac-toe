@@ -7,10 +7,12 @@ const int screenWidth = 600;
 const int screenHeight = 600;
 
 int game_grid [] = {
-    1, 2, 2,
-    2, 0, 1,
-    2, 0, 2
+    0, 0, 0, // 0
+    0, 0, 0, // 1
+    0, 0, 0 // 2
 };
+// 0, 1, 2
+// game_grid[(row * 3) + col]
 
 // function prototypes
 void draw_circle(int x, int y);
@@ -38,8 +40,18 @@ int main() {
         draw_grid();
 
         if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            std::cout << "ROW: " << (GetMouseY() / 200 ) + 1 << std::endl;
-            std::cout << "COLUMN: " << (GetMouseX() / 200 ) + 1 << std::endl;
+            // std::cout << "ROW: " << ( GetMouseY() / 200 ) << std::endl;
+            // std::cout << "COLUMN: " << ( GetMouseX() / 200 ) << std::endl;
+
+            std::cout << "CELL: " << (( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 ) << std::endl;
+
+            draw_shape = !draw_shape;
+            // std::cout << draw_shape << std::endl;
+            if(draw_shape) {
+                game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] = 1;
+            } else {
+                game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] = 2;
+            }
         }
 
         // TODO: FIX THIS GARBAGE
@@ -53,6 +65,7 @@ int main() {
             } else if (game_grid[i] == 2) {
                draw_cross(col_x, row_y);
             }
+
         }
 
 
