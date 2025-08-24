@@ -17,6 +17,7 @@ int game_grid [] = {
 // function prototypes
 void draw_circle(int x, int y);
 void draw_cross(int x, int y);
+void get_player_input();
 void draw_player_input();
 void draw_winner_line();
 void draw_grid();
@@ -39,23 +40,9 @@ int main() {
         ClearBackground(BLACK);
 
         draw_grid();
+        get_player_input();
         draw_player_input();
-
         
-
-        // TODO: FIX THIS GARBAGE
-        for(int i = 0; i < sizeof(game_grid) / sizeof(game_grid[0]); i++) {
-            col_x = ((i % 3) + 1) * 200;
-            row_y = (i / 3) * 200;
-
-
-            if (game_grid[i] == 1) {
-                draw_circle(col_x, row_y);
-            } else if (game_grid[i] == 2) {
-                draw_cross(col_x, row_y);
-            }
-
-        }
 
         EndDrawing();
     }
@@ -98,7 +85,7 @@ void draw_cross(int x, int y) {
     );
 }
 
-void draw_player_input() {
+void get_player_input() {
     // TODO: FIX THIS GARBAGE
     if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
         if(game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] == 0) {
@@ -110,5 +97,20 @@ void draw_player_input() {
 
             draw_shape = !draw_shape;
         }   
+    }
+}
+
+void draw_player_input() {
+    for(int i = 0; i < sizeof(game_grid) / sizeof(game_grid[0]); i++) {
+        col_x = ((i % 3) + 1) * 200;
+        row_y = (i / 3) * 200;
+
+
+        if (game_grid[i] == 1) {
+            draw_circle(col_x, row_y);
+        } else if (game_grid[i] == 2) {
+            draw_cross(col_x, row_y);
+        }
+
     }
 }
