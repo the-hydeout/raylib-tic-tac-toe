@@ -2,21 +2,22 @@
 #include <raylib.h>
 #include <vector>
 
-
 const int screenWidth = 600;
 const int screenHeight = 600;
 
+// 0 = empty
+// 1 = circle
+// 2 = cross
 int game_grid [] = {
-    0, 0, 0, // 0
-    0, 0, 0, // 1
-    0, 0, 0 // 2
+    0, 0, 0,
+    0, 0, 0,
+    0, 0, 0
 };
-// 0, 1, 2
-// game_grid[(row * 3) + col]
 
 // function prototypes
 void draw_circle(int x, int y);
 void draw_cross(int x, int y);
+void draw_player_input();
 void draw_winner_line();
 void draw_grid();
 
@@ -38,36 +39,23 @@ int main() {
         ClearBackground(BLACK);
 
         draw_grid();
+        draw_player_input();
 
-        if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
-            // std::cout << "ROW: " << ( GetMouseY() / 200 ) << std::endl;
-            // std::cout << "COLUMN: " << ( GetMouseX() / 200 ) << std::endl;
-
-            std::cout << "CELL: " << (( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 ) << std::endl;
-
-            draw_shape = !draw_shape;
-            // std::cout << draw_shape << std::endl;
-            if(draw_shape) {
-                game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] = 1;
-            } else {
-                game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] = 2;
-            }
-        }
+        
 
         // TODO: FIX THIS GARBAGE
         for(int i = 0; i < sizeof(game_grid) / sizeof(game_grid[0]); i++) {
             col_x = ((i % 3) + 1) * 200;
             row_y = (i / 3) * 200;
 
+
             if (game_grid[i] == 1) {
                 draw_circle(col_x, row_y);
-
             } else if (game_grid[i] == 2) {
-               draw_cross(col_x, row_y);
+                draw_cross(col_x, row_y);
             }
 
         }
-
 
         EndDrawing();
     }
@@ -108,4 +96,19 @@ void draw_cross(int x, int y) {
         x, y, // end x end y
         WHITE
     );
+}
+
+void draw_player_input() {
+    // TODO: FIX THIS GARBAGE
+    if(IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+        if(game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] == 0) {
+            if(draw_shape) {
+                game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] = 1;
+            } else {
+                game_grid[(( GetMouseY() / 200 ) * 3) + ( GetMouseX() / 200 )] = 2;
+            }
+
+            draw_shape = !draw_shape;
+        }   
+    }
 }
